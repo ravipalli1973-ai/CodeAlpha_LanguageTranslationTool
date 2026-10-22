@@ -20,7 +20,6 @@ st.markdown("""
         font-family: 'Plus Jakarta Sans', sans-serif;
     }
     
-    /* Header hero styling */
     .hero-container {
         text-align: center;
         padding: 1.5rem 1rem 2rem 1rem;
@@ -43,16 +42,6 @@ st.markdown("""
         font-weight: 500;
     }
     
-    /* Card wrapper */
-    .card {
-        background-color: #FFFFFF;
-        border: 1px solid #E2E8F0;
-        border-radius: 14px;
-        padding: 1.25rem;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-    }
-    
-    /* Custom info tags */
     .badge {
         display: inline-block;
         padding: 0.2rem 0.6rem;
@@ -93,6 +82,14 @@ LANGUAGES = {
 }
 lang_names = list(LANGUAGES.keys())
 
+
+@st.cache_data(show_spinner=False, ttl=3600)
+def cached_translate(text: str, src: str, tgt: str) -> str:
+    """Translates text with an in-memory cache to prevent redundant API calls."""
+    translator = MyMemoryTranslator(source=src, target=tgt)
+    return translator.translate(text)
+
+
 # Session State initialization for language swap
 if "source_idx" not in st.session_state:
     st.session_state.source_idx = 0  # English
@@ -119,7 +116,7 @@ target_code = LANGUAGES[target_name]
 
 st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
 
-# Main Translation Workspace: Side-by-side columns
+# Main Translation Workspace
 left_col, right_col = st.columns(2, gap="medium")
 
 with left_col:
@@ -136,7 +133,6 @@ with left_col:
     st.caption(f"📊 Words: {word_count} | Characters: {char_count}")
 
 # Translate execution logic
-translated_text = ""
 if "last_translation" not in st.session_state:
     st.session_state.last_translation = ""
 
@@ -152,8 +148,7 @@ if translate_clicked:
     else:
         try:
             with st.spinner("Translating text..."):
-                translator = MyMemoryTranslator(source=source_code, target=target_code)
-                translated_text = translator.translate(input_text)
+                translated_text = cached_translate(input_text.strip(), source_code, target_code)
                 st.session_state.last_translation = translated_text
         except Exception as e:
             st.error(f"Translation service error: {e}")
@@ -174,7 +169,6 @@ with right_col:
     if display_val:
         sub_col1, sub_col2 = st.columns(2)
         
-        # Audio Synthesizer
         with sub_col1:
             st.markdown("**🔊 Audio Pronunciation:**")
             try:
@@ -187,7 +181,6 @@ with right_col:
             except Exception:
                 st.caption("Audio unavailable for this dialect.")
         
-        # Copy to clipboard helper
         with sub_col2:
             st.markdown("**📋 Quick Copy:**")
             st.code(display_val, language="")
