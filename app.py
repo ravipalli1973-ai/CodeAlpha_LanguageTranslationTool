@@ -87,7 +87,8 @@ lang_names = list(LANGUAGES.keys())
 def cached_translate(text: str, src: str, tgt: str) -> str:
     """Translates text with an in-memory cache to prevent redundant API calls."""
     translator = MyMemoryTranslator(source=src, target=tgt)
-    return translator.translate(text)
+    result = translator.translate(text)
+    return str(result) if result else ""
 
 
 # Session State initialization for language swap
