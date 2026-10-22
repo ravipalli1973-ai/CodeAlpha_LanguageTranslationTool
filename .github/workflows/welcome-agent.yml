@@ -1,0 +1,34 @@
+name: Triage Assistant
+
+on:
+  issues:
+    types: [opened]
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  triage-and-respond:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post automated greeting and triage status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const isPR = !!context.payload.pull_request;
+            const targetType = isPR ? "pull request" : "issue";
+            const author = context.actor;
+            
+            const message = isPR 
+              ? `👋 Hello @${author}! Thank you for submitting this pull request.\n\nOur automated **CI Pipeline** has been dispatched to run syntax, type safety, and linting checks. A reviewer will inspect the changes shortly.`
+              : `👋 Hello @${author}! Thanks for opening this issue.\n\nOur triage workflow has registered your report. Please ensure relevant error logs and reproduction steps are included.`;
+            
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            });
