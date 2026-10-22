@@ -139,7 +139,15 @@ if "last_translation" not in st.session_state:
 
 action_col1, action_col2 = st.columns([3, 1])
 with action_col1:
-    translate_clicked = st.button("🚀 Translate Now", type="primary", use_container_width=True)
+  translate_clicked = st.button(
+      "🚀 Translate Now", type="primary", use_container_width=True
+  )
+with action_col2:
+  clear_clicked = st.button("🧹 Clear", use_container_width=True)
+
+if clear_clicked:
+  st.session_state.last_translation = ""
+  st.rerun()
 
 if translate_clicked:
     if not input_text.strip():
