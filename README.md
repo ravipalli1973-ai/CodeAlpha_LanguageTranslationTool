@@ -1,5 +1,7 @@
 # CodeAlpha AI Internship - Task 1: Language Translation Tool 🌐
 
+[![CI Pipeline](https://github.com/ravipalli1973-ai/CodeAlpha_LanguageTranslationTool/actions/workflows/ci.yml/badge.svg)](https://github.com/ravipalli1973-ai/CodeAlpha_LanguageTranslationTool/actions/workflows/ci.yml)
+
 An interactive language translation web application built with Python and Streamlit as part of the CodeAlpha Artificial Intelligence Internship.
 
 ## 🚀 Features
