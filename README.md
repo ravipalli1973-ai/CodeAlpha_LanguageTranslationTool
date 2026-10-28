@@ -4,6 +4,8 @@
 
 An interactive language translation web application built with Python and Streamlit as part of the CodeAlpha Artificial Intelligence Internship.
 
+Live Application:- https://codealpha-language-translator.streamlit.app/
+
 ## 🚀 Features
 - **Multi-Language Support**: Translates text across multiple global and regional languages.
 - **Accurate Translation Engine**: Integrated with translation APIs for reliable translation processing.
