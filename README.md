@@ -4,7 +4,7 @@
 
 An interactive language translation web application built with Python and Streamlit as part of the CodeAlpha Artificial Intelligence Internship.
 
-Live Application:- https://codealpha-language-translator.streamlit.app/
+**Live Application:** [codealpha-language-translator.streamlit.app](https://codealpha-language-translator.streamlit.app/)
 
 ## 🚀 Features
 - **Multi-Language Support**: Translates text across multiple global and regional languages.
@@ -23,5 +23,5 @@ Live Application:- https://codealpha-language-translator.streamlit.app/
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/YOUR_USERNAME/CodeAlpha_LanguageTranslationTool.git](https://github.com/YOUR_USERNAME/CodeAlpha_LanguageTranslationTool.git)
+   git clone [https://github.com/ravipalli1973-ai/CodeAlpha_LanguageTranslationTool.git](https://github.com/ravipalli1973-ai/CodeAlpha_LanguageTranslationTool.git)
    cd CodeAlpha_LanguageTranslationTool
